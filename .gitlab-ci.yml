@@ -10,6 +10,7 @@ read_secrets:
     VAULT_AUTH_TOKEN:
       aud: $VAULT_AUTH_TOKEN
   script:
+    - export VAULT_SKIP_VERIFY=1
     - export VAULT_ADDR=$VAULT_SERVER_URL
     # authenticate and get token. Token expiry time and other properties can be configured
     # when configuring JWT Auth - https://developer.hashicorp.com/vault/api-docs/auth/jwt#parameters-1

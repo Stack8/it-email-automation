@@ -27,6 +27,7 @@ run_automation:
   script:
     - cp $rulesyaml  rules.yaml
     - cat rules.yaml
+    - ls -latrR
     - export VAULT_TOKEN=$(cat .vault_token)
     - pip install -r requirements.txt
     - python3 mailreader.py --mailbox it-automation@goziro.com --vault prod/azure/it-automation

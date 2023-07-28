@@ -13,8 +13,6 @@ Reading the Secrets From the Vault Server:
               vault: prod/azure/it-automation/CLIENT_ID@secret
         CLIENT_SECRET:
               vault: prod/azure/it-automation/CLIENT_SECRET@secret
-    tags:
-         - vault-runner
     script:
       - echo $TENANT_ID
       - echo $CLIENT_ID                 

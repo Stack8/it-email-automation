@@ -2,4 +2,4 @@ hvac
 pdfkit
 requests_toolbelt
 msal
-yaml
+pyyaml

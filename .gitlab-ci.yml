@@ -26,6 +26,8 @@ run_automation:
     - read_secrets
   cache:
     key: $CI_COMMIT_REF_SLUG
+    paths:
+      - .vault_token
   script:
     - cp $rulesyaml  rules.yaml
     - cat rules.yaml

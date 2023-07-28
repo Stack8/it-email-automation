@@ -14,14 +14,19 @@ read_secrets:
     - export VAULT_ADDR=$VAULT_SERVER_URL
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=$VAULT_AUTH_ROLE jwt=$VAULT_AUTH_TOKEN)"
     - echo $VAULT_TOKEN > .vault_token
-    - cp $rulesyaml  rules.yaml
-    - cat rules.yaml
+  cache:  # Cache token
+    key: .vault_token
+    paths:
+      - .vault_token
+
 
 run_automation:
   stage: build
   needs:
     - read_secrets
   script:
+    - cp $rulesyaml  rules.yaml
+    - cat rules.yaml
     - export VAULT_TOKEN=$(cat .vault_token)
     - pip install -r requirements.txt
     - python3 mailreader.py --mailbox it-automation@goziro.com --vault prod/azure/it-automation

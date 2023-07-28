@@ -26,11 +26,15 @@ read_secrets:
 
 run_automation:
   stage: build
+  needs:
+    - read_secrets
   script:
     - PYTHONPATH=.  python3 mailreader.py --mailbox it-automation@goziro.com --vault
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
       when: manual
       allow_failure: true
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: manual
     - if: $CI_PIPELINE_SOURCE == "schedule"
   

@@ -16,4 +16,4 @@ read_secrets:
     # when configuring JWT Auth - https://developer.hashicorp.com/vault/api-docs/auth/jwt#parameters-1
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=$VAULT_AUTH_ROLE jwt=$VAULT_AUTH_TOKEN)"
     # use the VAULT_TOKEN to read the secret and store it in an environment variable
-    - export PASSWORD="$(vault kv get -field=CLIENT_ID secrets/kv/prod/azure/it-automation)"
+    - export PASSWORD="$(vault kv get -field=CLIENT_ID kv/prod/azure/it-automation)"

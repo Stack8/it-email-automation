@@ -24,6 +24,8 @@ run_automation:
   stage: build
   needs:
     - read_secrets
+  cache:
+    key: $CI_COMMIT_REF_SLUG
   script:
     - cp $rulesyaml  rules.yaml
     - cat rules.yaml

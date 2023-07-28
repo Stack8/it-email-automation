@@ -3,18 +3,16 @@ image: python:3.7
 stages:                 
   - build
 
-Reading the Secrets From the Vault Server: 
-    stage: build
-    image: bitnami/vault:latest
-    secrets:
-        TENANT_ID:
-              vault: prod/azure/it-automation/TENANT_ID@secret
-        CLIENT_ID:
-              vault: prod/azure/it-automation/CLIENT_ID@secret
-        CLIENT_SECRET:
-              vault: prod/azure/it-automation/CLIENT_SECRET@secret
-    script:
-      - echo $TENANT_ID
-      - echo $CLIENT_ID                 
-    only:                  
-       - main
+read_secrets:
+  stage: build
+  image: hashicorp/vault:latest
+  id_tokens:
+    VAULT_AUTH_TOKEN:
+      aud: $VAULT_AUTH_TOKEN
+  script:
+    - export VAULT_ADDR=$VAULT_AUTH_URL
+    # authenticate and get token. Token expiry time and other properties can be configured
+    # when configuring JWT Auth - https://developer.hashicorp.com/vault/api-docs/auth/jwt#parameters-1
+    - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=$VAULT_AUTH_ROLE jwt=$VAULT_AUTH_TOKEN)"
+    # use the VAULT_TOKEN to read the secret and store it in an environment variable
+    - export PASSWORD="$(vault kv get -field=CLIENT_ID prod/azure/it-automation)"

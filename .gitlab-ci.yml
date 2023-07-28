@@ -29,6 +29,7 @@ run_automation:
   needs:
     - read_secrets
   script:
+    - pip -r requirements.txt
     - PYTHONPATH=.  python3 mailreader.py --mailbox it-automation@goziro.com --vault
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"

@@ -1,0 +1,22 @@
+image: python:3.7    
+
+stages:                 
+  - build
+
+Reading the Secrets From the Vault Server: 
+    stage: build
+    image: vault:latest
+    secrets:
+        TENANT_ID:
+              vault: prod/azure/it-automation/TENANT_ID@secret
+        CLIENT_ID:
+              vault: prod/azure/it-automation/CLIENT_ID@secret
+        CLIENT_SECRET:
+              vault: prod/azure/it-automation/CLIENT_SECRET@secret
+    tags:
+         - vault-runner
+    script:
+      - echo $TENANT_ID
+      - echo $CLIENT_ID                 
+    only:                  
+       - main

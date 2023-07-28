@@ -5,7 +5,7 @@ stages:
 
 Reading the Secrets From the Vault Server: 
     stage: build
-    image: vault:latest
+    image: bitnami/vault:latest
     secrets:
         TENANT_ID:
               vault: prod/azure/it-automation/TENANT_ID@secret

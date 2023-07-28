@@ -20,3 +20,6 @@ read_secrets:
     - export TENANT_ID="$(vault kv get -field=TENANT_ID kv/prod/azure/it-automation)"
     - echo $TENANT_ID
     - echo "$CLIENT_ID"
+    - cp $rulesyaml  rules.yaml
+    - pwd
+    - cat rules.yaml

@@ -15,7 +15,7 @@ read_secrets:
     - export VAULT_TOKEN="$(vault write -field=token auth/jwt/login role=$VAULT_AUTH_ROLE jwt=$VAULT_AUTH_TOKEN)"
     - echo $VAULT_TOKEN > .vault_token
   cache:  # Cache token
-    key: .vault_token
+    key: $CI_COMMIT_REF_SLUG
     paths:
       - .vault_token
 

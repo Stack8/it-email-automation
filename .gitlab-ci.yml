@@ -31,13 +31,12 @@ run_automation:
   script:
     - cp $rulesyaml  rules.yaml
     - cat rules.yaml
-    - cp $ziro_ca ZIRO_CA_BUNDLE.crt
+    - ls -l /etc/ssl/certs/
+    - cp $ziro_ca /usr/local/share/ca-certificates/ZIRO_CA_BUNDLE.crt
+    - update-ca-certificates
     - export VAULT_SKIP_VERIFY=1
     - export VAULT_ADDR=$VAULT_SERVER_URL
     - export VAULT_TOKEN=$(cat .vault_token)
-    - export REQUESTS_CA_BUNDLE=./ZIRO_CA_BUNDLE.crt
-    - ls -l /etc/ssl
-    - ls -l /usr/local/share/
     - pip install -r requirements.txt
     - python3 mailreader.py --mailbox it-automation@goziro.com --vault prod/azure/it-automation
   rules:

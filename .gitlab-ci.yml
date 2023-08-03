@@ -44,5 +44,7 @@ run_automation:
       allow_failure: true
     - if: $CI_PIPELINE_SOURCE == "push"
       when: manual
+    - if: $CI_PIPELINE_SOURCE == "push"
+      when: manual
     - if: $CI_PIPELINE_SOURCE == "schedule"
   

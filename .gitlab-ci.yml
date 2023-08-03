@@ -29,7 +29,7 @@ run_automation:
     paths:
       - .vault_token
   script:
-    - sudo apt install -y wkhtmltopdf
+    - apt install -y wkhtmltopdf
     - cp $rulesyaml  rules.yaml
     - cat rules.yaml
     - cat /etc/ssl/certs/ca-certificates.crt $ziro_ca > ca_bundle.crt

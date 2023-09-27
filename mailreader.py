@@ -8,6 +8,12 @@ from mailhandler import DispatchRules
 from mailhandler import O365Mailbox
 from datetime import date
 
+import requests
+from urllib3.exceptions import InsecureRequestWarning
+ 
+# Suppress the warnings from urllib3
+requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
+
 parser = argparse.ArgumentParser()
 parser.add_argument('--debug', help="Enable debugging", action='store_true')
 parser.add_argument('--mailbox', help="Which mailbox to read", required=True)

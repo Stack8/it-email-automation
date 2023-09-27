@@ -15,11 +15,14 @@ class EmailMessage(object):
     def __init__(self, emaildata):
         self.message_id = emaildata['id']
         self.short_id = hashlib.sha1(self.message_id.encode('utf-8')).hexdigest()[0:8]
-        self.sender_name = emaildata['sender']['emailAddress']['name']
-        self.sender_email = emaildata['sender']['emailAddress']['address']
-        self.received_date = emaildata['receivedDateTime']
-        self.subj = emaildata['subject']
-        self.body = emaildata['body']['content']
+        try:
+            self.sender_name = emaildata['sender']['emailAddress']['name']
+            self.sender_email = emaildata['sender']['emailAddress']['address']
+            self.received_date = emaildata['receivedDateTime']
+            self.subj = emaildata['subject']
+            self.body = emaildata['body']['content']
+        except:
+            print(emaildata)
 
     @property
     def id(self):
@@ -108,8 +111,12 @@ class O365Mailbox(object):
                     nextlink = data.get('@odata.nextLink', None)
                     params = None
                     for email in data['value']:
-                        msg = EmailMessage(email)
-                        messages.append(msg)
+                        try:
+                            msg = EmailMessage(email)
+                            messages.append(msg)
+                        except Exception as e:
+                            self._log.debug(email)
+                            raise
                 else:
                     self._log.critical(r.json())
         except Exception as e:

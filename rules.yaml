@@ -1,0 +1,36 @@
+evidence_collectors:
+  - id: 30042
+    type: tugboatlogic
+    vault: external/onetrust/backup-reports
+  - id: 30660
+    type: tugboatlogic
+    vault: external/onetrust/backup-reports
+  - id: 32317
+    type: tugboatlogic
+    vault: external/onetrust/hire-dates
+  - id: 32319
+    type: tugboatlogic
+    vault: external/onetrust/hire-dates
+rules:
+  senders:
+    Veeam-Central-Backup@goziro.com:
+      - type: evidence
+        collector: 30042
+      - type: evidence
+        collector: 30660
+    report@spamtitan.com:
+      - type: noop
+    noreply@email.teams.microsoft.com:
+      - type: noop
+    it-automation@stack8.com:
+      - type: noop
+    azure-noreply@microsoft.com:
+      - type: noop
+    PowerAutomateNoReply@microsoft.com:
+      - type: noop
+  subjects:
+    "Employment dates report.*":
+      - type: evidence
+        collector: 32317
+      - type: evidence
+        collector: 32319
